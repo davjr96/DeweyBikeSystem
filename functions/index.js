@@ -31,3 +31,12 @@ exports.addReading = functions.https.onRequest((req, res) => {
       return res.status(201).send("Created");
     });
 });
+
+exports.readings = functions.https.onRequest((req, res) => {
+  return admin
+    .database()
+    .ref("/readings")
+    .once("value", function(data) {
+      return res.status(200).send(data.val());
+    });
+});

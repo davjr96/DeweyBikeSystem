@@ -20,12 +20,13 @@ exports.addReading = functions.https.onRequest((req, res) => {
   // Grab the text parameter.
   const id = req.query.id;
   const measurement = req.query.measurement;
+  var date = new Date();
 
   // Push the new message into the Realtime Database using the Firebase Admin SDK.
   return admin
     .database()
     .ref("/readings")
-    .push({ id: id, measurement: measurement })
+    .push({ id: id, measurement: measurement, date: date })
     .then(snapshot => {
       // Redirect with 303 SEE OTHER to the URL of the pushed object in the Firebase console.
       return res.status(201).send("Created");

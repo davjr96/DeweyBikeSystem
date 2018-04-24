@@ -54,7 +54,7 @@ class App extends Component {
   }
   render() {
     const data = this.state.data;
-    const graph = this.state.graph;
+    const graph = this.state.graph.slice(this.state.graph.length - 24);
     const lastUpdated = this.state.lastUpdated;
 
     const CustomizedAxisTick = createReactClass({
@@ -84,7 +84,7 @@ class App extends Component {
     return (
       <section className="section">
         <div className="container">
-          {data[data.length - 1] < 2500 ? (
+          {data[data.length - 1] > 2100 ? (
             <div>
               <section className="hero is-primary">
                 <div className="hero-body">
@@ -120,7 +120,12 @@ class App extends Component {
                 interval={1}
               />
               <YAxis domain={["auto", "auto"]} />
-              <ReferenceLine y={2500} label="Cutoff" stroke="red" />
+              <ReferenceLine
+                y={2100}
+                label="Cutoff"
+                strokeWidth={5}
+                stroke="red"
+              />
 
               <CartesianGrid strokeDasharray="3 3" />
               <Legend verticalAlign="top" />

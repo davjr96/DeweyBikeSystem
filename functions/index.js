@@ -1,4 +1,5 @@
 const functions = require("firebase-functions");
+const cors = require("cors")({ origin: true });
 
 var admin = require("firebase-admin");
 
@@ -30,7 +31,20 @@ exports.readings = functions.https.onRequest((req, res) => {
   return admin
     .database()
     .ref("/readings")
-    .once("value", function(data) {
+    .once("value", data => {
       return res.status(200).send(data.val());
+    });
+});
+
+exports.latest = functions.https.onRequest((req, res) => {
+  return admin
+    .database()
+    .ref("/readings")
+    .limitToLast(1)
+    .once("value", data => {
+      var json = data.toJSON();
+      const keys = Object.keys(json);
+
+      return res.status(200).send(json[keys[0]]["measurement"]);
     });
 });

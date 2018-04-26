@@ -54,7 +54,7 @@ class App extends Component {
   }
   render() {
     const data = this.state.data;
-    const graph = this.state.graph.slice(this.state.graph.length - 24);
+    const graph = this.state.graph.slice(this.state.graph.length - 48);
     const lastUpdated = this.state.lastUpdated;
 
     const CustomizedAxisTick = createReactClass({
